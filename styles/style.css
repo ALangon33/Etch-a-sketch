@@ -9,6 +9,10 @@
 body {
     font-family: Roboto, "Open Sans", "Helvetica Neue", sans-serif;
     background-color: bisque;
+    display: flex;
+    flex-flow:column nowrap;
+    justify-content: center;
+    align-items: center;
 }
 
 #head-container {
@@ -18,6 +22,7 @@ body {
     background-color: aliceblue;
     margin:30px;
     border-radius:5rem;
+    width:960px;
 }
 
 h1 {
