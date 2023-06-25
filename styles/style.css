@@ -28,3 +28,7 @@ body {
 h1 {
     padding:20px;
 }
+
+.blackground {
+    background-color: black;
+}
