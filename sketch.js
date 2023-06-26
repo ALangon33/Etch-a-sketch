@@ -1,3 +1,23 @@
+const rgbToHsl = (r, g, b) => {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const l = Math.max(r, g, b);
+  const s = l - Math.min(r, g, b);
+  const h = s
+    ? l === r
+      ? (g - b) / s
+      : l === g
+      ? 2 + (b - r) / s
+      : 4 + (r - g) / s
+    : 0;
+  return [
+    60 * h < 0 ? 60 * h + 360 : 60 * h,
+    100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
+    (100 * (2 * l - s)) / 2,
+  ];
+};
+
 const bodyContainer = document.querySelector('body');
 const canvasContainer = document.createElement('div');
 const btn = document.querySelector('button');
@@ -8,12 +28,14 @@ let isDown = false;
 
   generateCanvas();
   generateGrid(gridSize);
+  
+  let canvasColor = canvasContainer.style.backgroundColor;
 
 function generateCanvas() {
   canvasContainer.id = 'canvas-container';
   canvasContainer.style.width = `${canvasSize + 'px'}`;
   canvasContainer.style.height = `${canvasSize + 'px'}`;
-  canvasContainer.style.backgroundColor = 'white';
+  canvasContainer.style.backgroundColor = 'hsl(0,0%,100%)';
   canvasContainer.style.display = 'flex';
   canvasContainer.style.flexFlow = 'row nowrap';
   canvasContainer.style.alignItems = 'center';
@@ -34,23 +56,39 @@ function generateGrid(a) {
       gridColumnDiv.style.height = `${(960 / a) + 'px'}`;
       gridColumnDiv.style.flex = '1';
       gridColumnDiv.id = 'grid-tile';
+      gridColumnDiv.style.backgroundColor = 'hsl(0,0%,100%)';
       gridColumnDiv.style.flexFlow = 'column nowrap';
       gridRowDiv.appendChild(gridColumnDiv);
     };
   };
 
   let gridTiles = document.querySelectorAll('#grid-tile');
-  let gridRows = document.querySelectorAll('#grid-rows');
 
   gridTiles.forEach(gridTile => gridTile.addEventListener('mousedown', () => {
     isDown = true;
-    gridTile.classList.add('blackground');
+    currentColor = gridTile.style.backgroundColor;    
+    currentColorSliced = currentColor.slice(4,-1);
+    colorComponents = currentColorSliced.split(',')
+    colorInHsl = rgbToHsl(colorComponents[0],colorComponents[1],colorComponents[2])
+    colorInHsl[1] = `${colorInHsl[1]}` + `%`; 
+    colorInHsl[2] = colorInHsl[2] - 10; 
+    hslColorInString = colorInHsl.toString();
+    outputColor = `hsl(` + `${hslColorInString}` + `%)`;
+    gridTile.style.backgroundColor = outputColor;
     gridRowDiv.appendChild(gridColumnDiv);
   }));
   
   gridTiles.forEach(gridTile => gridTile.addEventListener('mousemove', () => {
     if (isDown) {
-      gridTile.classList.add('blackground');
+      currentColor = gridTile.style.backgroundColor;
+      currentColorSliced = currentColor.slice(4,-1);
+      colorComponents = currentColorSliced.split(',')
+      colorInHsl = rgbToHsl(colorComponents[0],colorComponents[1],colorComponents[2])
+      colorInHsl[1] = `${colorInHsl[1]}` + `%`; 
+      colorInHsl[2] = colorInHsl[2] - 10; 
+      hslColorInString = colorInHsl.toString();
+      outputColor = `hsl(` + `${hslColorInString}` + `%)`;      
+      gridTile.style.backgroundColor = outputColor;
       gridRowDiv.appendChild(gridColumnDiv);
     };
   }));
@@ -63,6 +101,7 @@ function generateGrid(a) {
     isDown = false;
   });
 };
+
 
 let gridTiles = document.querySelectorAll('#grid-tile');
 let gridRows = document.querySelectorAll('#grid-row');
@@ -83,5 +122,4 @@ btn.addEventListener('click', () => {
   };
   generateGrid(gridSize);
 });
-
 
