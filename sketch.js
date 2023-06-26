@@ -22,7 +22,7 @@ const bodyContainer = document.querySelector('body');
 const canvasContainer = document.createElement('div');
 const btn = document.querySelector('button');
 const inputContainer = document.getElementById('input-container');
-const canvasSize = 960;
+const canvasSize = 720;
 let gridSize = 16;
 let isDown = false;
 
@@ -39,6 +39,7 @@ function generateCanvas() {
   canvasContainer.style.display = 'flex';
   canvasContainer.style.flexFlow = 'row nowrap';
   canvasContainer.style.alignItems = 'center';
+  canvasContainer.style.margin = '50px';
   bodyContainer.appendChild(canvasContainer);
 };
 
@@ -52,8 +53,8 @@ function generateGrid(a) {
 
     for (n = 0; n < a; n++) {
       gridColumnDiv = document.createElement('div');
-      gridColumnDiv.style.width = `${(960 / a) + 'px'}`;
-      gridColumnDiv.style.height = `${(960 / a) + 'px'}`;
+      gridColumnDiv.style.width = `${(canvasSize / a) + 'px'}`;
+      gridColumnDiv.style.height = `${(canvasSize / a) + 'px'}`;
       gridColumnDiv.style.flex = '1';
       gridColumnDiv.id = 'grid-tile';
       gridColumnDiv.style.backgroundColor = 'hsl(0,0%,100%)';
