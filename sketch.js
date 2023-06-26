@@ -6,6 +6,7 @@ let gridSize = 16;
   generateCanvas();
   generateGrid(gridSize);
 
+  
 function generateCanvas() {
   canvasContainer.id = 'canvas-container';
   canvasContainer.style.width = `${canvasSize + 'px'}`;
@@ -68,10 +69,15 @@ let gridRows = document.querySelectorAll('#grid-row');
 
 btn.style.margin = '30px';
 btn.style.padding = '10px';
+btn.style.color = 'bisque';
+btn.style.backgroundColor = 'black';
+btn.style.border = '5px black solid';
+btn.style.borderRadius = '5rem';
+btn.style.fontSize = '20px';
 
 btn.addEventListener('click', () => {
   canvasContainer.innerHTML = '';
-  gridSize = prompt("# x # Grid : ")
+  gridSize = prompt("Grid Size : ")
   generateGrid(gridSize);
 });
 
