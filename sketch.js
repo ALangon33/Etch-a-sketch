@@ -75,9 +75,14 @@ btn.style.border = '5px black solid';
 btn.style.borderRadius = '5rem';
 btn.style.fontSize = '20px';
 
+
+
 btn.addEventListener('click', () => {
   canvasContainer.innerHTML = '';
+  gridSize = null;
+  while(gridSize > 101 || gridSize < 1) {
   gridSize = prompt("Grid Size : ")
+  };
   generateGrid(gridSize);
 });
 
