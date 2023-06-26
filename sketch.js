@@ -106,13 +106,14 @@ function generateGrid(a) {
 let gridTiles = document.querySelectorAll('#grid-tile');
 let gridRows = document.querySelectorAll('#grid-row');
 
-btn.style.margin = '30px';
-btn.style.padding = '10px';
+btn.style.margin = '30px 0px';
+btn.style.padding = '20px 100px';
 btn.style.color = 'bisque';
 btn.style.backgroundColor = 'black';
 btn.style.border = '5px black solid';
 btn.style.borderRadius = '5rem';
-btn.style.fontSize = '20px';
+btn.style.fontSize = '24px';
+btn.style.fontWeight = '800';
 
 btn.addEventListener('click', () => {
   canvasContainer.innerHTML = '';
