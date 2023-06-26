@@ -1,12 +1,14 @@
 const bodyContainer = document.querySelector('body');
 const canvasContainer = document.createElement('div');
 const btn = document.querySelector('button');
+const inputContainer = document.getElementById('input-container');
 const canvasSize = 960;
 let gridSize = 16;
+let isDown = false;
+
   generateCanvas();
   generateGrid(gridSize);
 
-  
 function generateCanvas() {
   canvasContainer.id = 'canvas-container';
   canvasContainer.style.width = `${canvasSize + 'px'}`;
@@ -62,8 +64,6 @@ function generateGrid(a) {
   });
 };
 
-let isDown = false;
-
 let gridTiles = document.querySelectorAll('#grid-tile');
 let gridRows = document.querySelectorAll('#grid-row');
 
@@ -75,13 +75,11 @@ btn.style.border = '5px black solid';
 btn.style.borderRadius = '5rem';
 btn.style.fontSize = '20px';
 
-
-
 btn.addEventListener('click', () => {
   canvasContainer.innerHTML = '';
   gridSize = null;
   while(gridSize > 101 || gridSize < 1) {
-  gridSize = prompt("Grid Size : ")
+  gridSize = prompt("Grid Size : ",16)
   };
   generateGrid(gridSize);
 });
